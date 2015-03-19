@@ -1,1 +1,11 @@
+@import "bootstrap-sprockets";
 @import "bootstrap";
+
+.panel {
+  margin: 30px auto;
+  max-width: 600px;
+}
+
+h1 {
+  text-align: center;
+}

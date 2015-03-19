@@ -1,2 +1,2 @@
 angular
-  .module('todo', [])
+  .module('todo', ['ng-rails-csrf'])

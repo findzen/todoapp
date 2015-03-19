@@ -1,0 +1,42 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h1>Todo list</h1></div>
+  <div class="panel-body">
+    <form ng-submit="create()">
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="What do you need to do?"
+          class="form-control"
+          ng-model="text"
+          ng-disabled="busy"
+        >
+        <span class="input-group-btn">
+          <button class="btn btn-primary" type="submit" ng-disabled="busy">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item checkbox" ng-repeat="todo in todos">
+      <label>
+        <input
+          type="checkbox"
+          ng-model="todo.done"
+          ng-click="update(todo)"
+          ng-disabled="busy"
+        > {{todo.text}}
+      </label>
+
+      <button
+        class="btn btn-xs btn-danger pull-right"
+        ng-click="delete(todo.id)"
+        ng-disabled="busy"
+      >
+        <i class="glyphicon glyphicon-trash"></i>
+      </button>
+    </li>
+  </ul>
+</div>

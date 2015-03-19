@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20150319193556) do
 
   create_table "todos", force: :cascade do |t|
     t.text     "text"
-    t.boolean  "done"
-    t.boolean  "deleted"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "done",       default: false
+    t.boolean  "deleted",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
 end
