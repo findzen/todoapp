@@ -1,42 +1,23 @@
 angular
   .module('todo')
   .controller 'AppCtrl', ($scope, $element, $http) ->
-    $scope.busy = true
+    # Handles response to a request created from a call to `$http`
+    handleResponse = (promise) ->
+      $scope.busy = true
 
-    $http.get('/todos')
-      .success((response) ->
+      promise.success((response) ->
         $scope.busy  = false
         $scope.todos = response
       ).error (response) ->
         console.error response
 
     $scope.delete = (id) ->
-      $scope.busy = true
-
-      $http.delete("/todos/#{id}")
-        .success((response) ->
-          $scope.busy  = false
-          $scope.todos = response
-        ).error (response) ->
-          console.error response
+      handleResponse $http.delete("/todos/#{id}")
 
     $scope.create = ->
-      $scope.busy = true
-
-      $http.post('/todos', text: $scope.text)
-        .success((response) ->
-          $scope.busy  = false
-          $scope.text  = ''
-          $scope.todos = response
-        ).error (response) ->
-          console.error response
+      handleResponse $http.post('/todos', text: $scope.text)
 
     $scope.update = (todo) ->
-      $scope.busy = true
+      handleResponse $http.patch("/todos/#{todo.id}", todo: { done: todo.done } )
 
-      $http.patch("/todos/#{todo.id}", todo: { done: todo.done } )
-        .success((response) ->
-          $scope.busy  = false
-          $scope.todos = response
-        ).error (response) ->
-          console.error response
+    handleResponse $http.get('/todos')
