@@ -15,7 +15,10 @@ angular
       handleResponse $http.delete("/todos/#{id}")
 
     $scope.create = ->
-      handleResponse $http.post('/todos', text: $scope.text)
+      promise = $http.post('/todos', text: $scope.text)
+      promise.success -> $scope.text = ''
+
+      handleResponse promise
 
     $scope.update = (todo) ->
       handleResponse $http.patch("/todos/#{todo.id}", todo: { done: todo.done } )
