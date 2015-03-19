@@ -16,7 +16,6 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'bower'
-gem 'angular-rails-templates'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'ngannotate-rails'
 gem 'ng-rails-csrf'

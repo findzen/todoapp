@@ -3,7 +3,7 @@ class TodosController < ApplicationController
 
   # GET /todos
   def index
-    render json: Todo.where(deleted: false), status: :ok
+    render_todo_list
   end
 
   # POST /todos
@@ -11,33 +11,39 @@ class TodosController < ApplicationController
     @todo = Todo.new(todo_params)
 
     if @todo.save
-      # render json: @todo, status: :ok
-      render json: Todo.where(deleted: false), status: :ok
+      render_todo_list
     else
-      render json: @todo.errors, status: :unprocessable_entity
+      render_errors
     end
   end
 
   # PATCH/PUT /todos/1
   def update
     if @todo.update(todo_params)
-      # render :show, status: :ok, location: @todo
-      render json: Todo.where(deleted: false), status: :ok
+      render_todo_list
     else
-      render json: @todo.errors, status: :unprocessable_entity
+      render_errors
     end
   end
 
   # DELETE /todos/1
   def destroy
     if @todo.update deleted: true
-      render json: Todo.where(deleted: false), status: :ok
+      render_todo_list
     else
-      render json: @todo.errors, status: :unprocessable_entity
+      render_errors
     end
   end
 
   private
+    def render_todo_list
+      render json: Todo.where(deleted: false), status: :ok
+    end
+
+    def render_errors
+      render json: @todo.errors, status: :unprocessable_entity
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
       @todo = Todo.find(params[:id])
